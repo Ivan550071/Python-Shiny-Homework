@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 from shiny import reactive #I do this because shiny express doesn't support reactive functions yet
 from shiny.express import input, ui, render
-from shinywidgets import render_widget
+from htmltools import HTML
 
 @reactive.calc()
 def co2_data():
@@ -27,7 +27,7 @@ with ui.navset_bar(title="Select your Analysis"):
                         df = co2_data()
                         countries = sorted(df["country"].unique())
                         return ui.input_select("country", "Choose a Country:", choices=countries, selected="Austria"), ui.input_slider("years", "Rolling Mean (years)", 1, 20, 5)
-            @render_widget
+            @render.ui
             def time_series_plot():
                 df = co2_data()
                 selected_country = input.country()
@@ -42,7 +42,7 @@ with ui.navset_bar(title="Select your Analysis"):
                                 mode="lines", name=f"{window}-year Rolling Mean", line=dict(color="orange"))
                 fig.update_layout(hovermode="x unified", margin=dict(t=40))
 
-                return fig
+                return HTML(fig.to_html(include_plotlyjs="cdn", div_id="time_series_plot"))
 
     with ui.nav_panel("World Map - CO2 Emissions per Country"):
         with ui.layout_sidebar():
@@ -52,7 +52,7 @@ with ui.navset_bar(title="Select your Analysis"):
                         df = co2_data()
                         years = df["year"]
                         return ui.input_slider("year", "Select Year", int(years.min()), int(years.max()), int(years.min()))
-            @render_widget
+            @render.ui
             def world_map_plot():
                 df = co2_data()
                 selected_year = input.year()
@@ -67,4 +67,4 @@ with ui.navset_bar(title="Select your Analysis"):
                     title=f"CO₂ Emissions in {selected_year}",
                 )
                 fig.update_layout(margin=dict(t=40))
-                return fig
+                return HTML(fig.to_html(include_plotlyjs="cdn", div_id="world_map_plot"))
