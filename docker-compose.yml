@@ -1,0 +1,17 @@
+services:
+  a4-ex1:
+    build: .
+    image: a4-shiny
+    container_name: a4-ex1
+    ports:
+      - "8000:8000"
+    environment:
+      APP_PATH: a4_ex1/app.py
+  a4-ex2:
+    build: .
+    image: a4-shiny
+    container_name: a4-ex2
+    ports:
+      - "8001:8000"
+    environment:
+      APP_PATH: a4_ex2/app.py
