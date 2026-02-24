@@ -1,6 +1,7 @@
 # Python Shiny Applications
 
 A collection of interactive Python Shiny applications demonstrating data visualization and manipulation capabilities.
+I made these as a uni homework a while ago.
 
 ## Applications
 
