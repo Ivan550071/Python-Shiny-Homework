@@ -78,7 +78,3 @@ Access the apps at:
 - **Plotly**: Interactive visualizations
 - **Pandas**: Data manipulation and analysis
 - **Docker**: Containerization and deployment
-
-## License
-
-This project is for educational purposes.
